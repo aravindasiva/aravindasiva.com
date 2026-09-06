@@ -1,0 +1,15 @@
+name: Gatekeeper
+
+run-name: '🚦 Gatekeeper on #${{ github.event.number }} by @${{ github.actor }}'
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: gatekeeper-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml

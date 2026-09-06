@@ -1,0 +1,48 @@
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      github-actions:
+        patterns: ['*']
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+    groups:
+      npm-patch-minor:
+        update-types: [minor, patch]
+    ignore:
+      # typescript-eslint peers typescript <6.1.0, so a minor bump silently
+      # disables every type-aware rule. Move this deliberately, never by bot.
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
+      # eslint-config-next depends on eslint-plugin-react, which still caps at
+      # eslint ^9.7 and crashes on 10. Move only once that chain catches up.
+      - dependency-name: eslint
+        update-types: [version-update:semver-major]
+      - dependency-name: next
+        update-types: [version-update:semver-major]
+      - dependency-name: eslint-config-next
+        update-types: [version-update:semver-major]
+      - dependency-name: react
+        update-types: [version-update:semver-major]
+      - dependency-name: react-dom
+        update-types: [version-update:semver-major]
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+      - dependency-name: lint-staged
+        update-types: [version-update:semver-major]
+      - dependency-name: '@commitlint/cli'
+        update-types: [version-update:semver-major]

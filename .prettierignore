@@ -1,0 +1,18 @@
+node_modules
+.next
+.vercel
+build
+dist
+coverage
+pnpm-lock.yaml
+next-env.d.ts
+
+# next typegen rewrites and reformats this on every run
+tsconfig.json
+
+# local, never committed
+CLAUDE.md
+CONTEXT.md
+
+public/schemas
+*.generated.*

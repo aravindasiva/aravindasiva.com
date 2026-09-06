@@ -1,0 +1,15 @@
+name: Bossman
+
+run-name: '🤖 Bossman on ${{ github.ref_name }} by @${{ github.actor }}'
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: bossman-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml
