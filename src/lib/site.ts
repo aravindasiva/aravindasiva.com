@@ -3,3 +3,6 @@ export const SITE_NAME = 'Aravinda Siva'
 export const SITE_DESCRIPTION =
   'Tech lead and full stack engineer in Lisbon. A portfolio that behaves like a terminal.'
 export const SITE_GITHUB = 'https://github.com/aravindasiva'
+
+/* The prompt path. Costume, not state, but it appears in two places. */
+export const PROMPT_PATH = '~/aravindasiva/app'

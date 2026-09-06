@@ -8,9 +8,13 @@
   "eslint.useFlatConfig": true,
   "js/ts.tsdk.path": "node_modules/typescript/lib",
   "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "tailwindCSS.experimental.configFile": "src/app/globals.css",
   "prettier.requireConfig": true,
   "files.eol": "\n",
   "editor.rulers": [80],
+  // Tailwind v4 uses @theme, @custom-variant and other at-rules the built-in
+  // CSS linter does not know. The CSS is valid, PostCSS handles it.
+  "css.lint.unknownAtRules": "ignore",
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

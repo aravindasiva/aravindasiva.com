@@ -1,0 +1,201 @@
+@import 'tailwindcss';
+@import '../styles/theme.css';
+
+/*
+  Tokens run primitive -> semantic -> component, one way. Primitives are
+  Tailwind's own 4px spacing base and the palette hexes in theme.css. Semantic
+  and component tokens are below. Nothing in a component file should carry a
+  raw number that is not in this file.
+*/
+
+/*
+  SEMANTIC. `inline` keeps the utilities pointing at the custom properties rather
+  than copying their values, so swapping data-theme on <html> restyles the page
+  with no rebuild and no flash.
+*/
+@theme inline {
+  --color-surface: var(--surface);
+  --color-chrome: var(--chrome);
+  --color-fg: var(--fg);
+  --color-bright: var(--bright);
+  --color-dim: var(--dim);
+  --color-accent: var(--accent);
+  --color-secret: var(--secret);
+  --color-meta: var(--meta);
+  --color-error: var(--error);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-selected: var(--selected);
+  --color-scrollbar: var(--scrollbar);
+  --color-wall: var(--wall);
+
+  /* macOS window controls. System constants, identical in every palette. */
+  --color-light-close: #ff5f57;
+  --color-light-minimise: #febc2e;
+  --color-light-fullscreen: #28c840;
+
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-ui: var(--font-atkinson), system-ui, sans-serif;
+}
+
+/*
+  BRIDGE. components/ui is registry output and is never hand-edited, so those
+  files keep shadcn's token names. Mapping them onto our palette here is what
+  lets a vendored primitive inherit the theme rather than ship a second one.
+*/
+@theme inline {
+  --color-background: var(--surface);
+  --color-foreground: var(--fg);
+  --color-popover: var(--chrome);
+  --color-popover-foreground: var(--fg);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--surface);
+  --color-secondary: var(--chrome);
+  --color-secondary-foreground: var(--fg);
+  --color-muted: var(--chrome);
+  --color-muted-foreground: var(--dim);
+  --color-destructive: var(--error);
+  --color-border: var(--line);
+  --color-input: var(--line);
+  --color-ring: var(--accent);
+}
+
+/*
+  SEMANTIC type. Every line height is a multiple of 4px, so the scrollback sits
+  on one baseline grid however blocks are combined.
+*/
+@theme {
+  --text-micro: 10px;
+  --text-micro--line-height: 16px;
+  --text-label: 11px;
+  --text-label--line-height: 16px;
+  --text-ui: 12px;
+  --text-ui--line-height: 20px;
+  --text-body: 13.5px;
+  --text-body--line-height: 24px;
+  --text-lead: 15px;
+  --text-lead--line-height: 24px;
+  --text-h3: 17px;
+  --text-h3--line-height: 24px;
+  --text-h2: 21px;
+  --text-h2--line-height: 28px;
+  --text-h1: 27px;
+  --text-h1--line-height: 32px;
+}
+
+/*
+  COMPONENT. Named dimensions, so changing the title bar height is one edit here
+  rather than a grep for `h-10`. These land in the --spacing-* namespace, which
+  generates every sizing utility: h-titlebar, px-gutter, gap-block.
+*/
+@theme {
+  --spacing-desk: 12px;
+  --spacing-titlebar: 40px;
+  --spacing-light: 11px;
+  --spacing-gutter: 20px;
+  --spacing-block: 24px;
+  --spacing-tap: 44px;
+  --spacing-caret-w: 1ch;
+  --spacing-caret-h: 20px;
+
+  --radius-window: 12px;
+
+  /*
+    caret-shape: block has not shipped in any browser, so the resting caret is a
+    drawn block. step-end gives the hard on/off a terminal has, not a fade.
+  */
+  --animate-caret: caret 750ms step-end infinite;
+
+  /* Background only, nothing moves, so a re-run reads as emphasis not arrival. */
+  --animate-pulse-block: pulse-block 640ms var(--ease-out);
+  --animate-arrive: arrive 220ms var(--ease-out) both;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes pulse-block {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  30% {
+    background-color: var(--card);
+  }
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  html[data-theme='daylight'] {
+    color-scheme: light;
+  }
+
+  body {
+    background: var(--wall);
+    color: var(--fg);
+    font-family: var(--font-mono);
+  }
+
+  /*
+    Styled rather than left to the platform. macOS overlay scrollbars fade, but
+    Chrome keeps one visible while its scroller has focus, and the scrollback is
+    focusable so a keyboard user can page through it. That made the scrollbar
+    appear and stay after a click. A thin thumb in our own palette is present in
+    every state, which is duller than a fade and never looks like an artifact.
+  */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar) transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+/*
+  View transitions give the scrollback real FLIP when a block moves, so a
+  re-ordered set slides rather than teleporting. Same-document transitions are
+  Baseline; the caller guards for engines without them.
+*/
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
