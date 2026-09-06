@@ -1,5 +1,5 @@
-import { SITE_NAME } from '@/lib/constants'
+import { Terminal } from '@/terminal/Terminal'
 
 export default function HomePage() {
-  return <main>{SITE_NAME}</main>
+  return <Terminal />
 }

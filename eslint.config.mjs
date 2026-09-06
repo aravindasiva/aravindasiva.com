@@ -4,15 +4,25 @@ import prettier from 'eslint-config-prettier'
 import tseslint from 'typescript-eslint'
 
 /*
-  The data side (src/commands, src/content) resolves a command name to plain
-  data and must stay renderable by anything. Importing a component, a framework
-  or a stylesheet there collapses that separation, so it is blocked rather than
-  left to discipline. tests/boundary.test.ts proves the rule actually fires.
+  The data side resolves a typed line to plain data and must stay serialisable,
+  because each route resolves its command on the server and hands the result to
+  the client shell as a prop. A component, a framework or a stylesheet in there
+  would make that impossible, so it is blocked rather than left to discipline.
+
+  The globs cover .tsx as well as .ts on purpose. They did not, and a .tsx file
+  under src/commands importing react linted clean.
+
+  tests/boundary.test.ts proves the rule actually fires.
 */
-const DATA_SIDE = ['src/commands/**/*.ts', 'src/content/**/*.ts']
+const DATA_SIDE = [
+  'src/commands/**/*.{ts,tsx}',
+  'src/interpreter/**/*.{ts,tsx}',
+  'src/content/**/*.{ts,tsx}',
+  'src/lib/**/*.{ts,tsx}',
+]
 
 const boundaryMessage =
-  'The data side returns plain data. Move anything that renders into src/components or src/features.'
+  'The data side returns plain data. Anything that renders belongs in src/outputs, src/terminal or src/components.'
 
 const dataSideBoundary = {
   paths: [
@@ -23,7 +33,13 @@ const dataSideBoundary = {
   patterns: [
     { group: ['react/*', 'react-dom/*', 'next/*'], message: boundaryMessage },
     {
-      group: ['@/components/*', '@/features/*', '@/hooks/*'],
+      group: [
+        '@/components/*',
+        '@/outputs/*',
+        '@/terminal/*',
+        '@/desktop/*',
+        '@/hooks/*',
+      ],
       message: boundaryMessage,
     },
     { group: ['*.css', '**/*.css'], message: boundaryMessage },

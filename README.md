@@ -39,17 +39,25 @@ Vercel. No CMS, no database, no API.
 content/            JSON, hand edited, zod validated
 src/
   app/              routes, thin
-  commands/         resolves a command name to data. never renders
+  commands/         one file per command. plain data, never renders
+  interpreter/      turns a typed line into an outcome
   content/          schemas and derived values
-  components/       ui/ is vendored shadcn, the rest is mine
-  features/         Terminal, Desktop
+  outputs/          draws whatever a command returned
+  terminal/         the window surface: entry, components, helpers
+  components/       shared primitives. ui/ is vendored shadcn
   hooks/  lib/  styles/
 tests/              mirrors the source path
 ```
 
-`src/commands` and `src/content` may not import React, Next, a component or a
-stylesheet. That is the one architectural rule and it is enforced by ESLint, with
-a test that proves the rule actually fires.
+Read the top level left to right and you have the flow: the interpreter reads the
+line, commands produce data, outputs draw it, the terminal is the surface.
+
+The data side is `commands`, `interpreter`, `content` and `lib`. None of it may
+import React, Next, a component or a stylesheet. That is the one architectural
+rule, it is enforced by ESLint, and a test proves the rule actually fires. It
+exists because each route resolves its command on the server and hands the result
+to the client shell as a plain prop, which is impossible if a command can
+return markup.
 
 ## Running it
 

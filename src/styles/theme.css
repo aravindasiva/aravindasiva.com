@@ -1,0 +1,68 @@
+/*
+  Palettes. Only what changes between themes lives here; everything static is in
+  globals.css. Accent semantics are fixed across all three, and breaking them
+  makes the accents stop meaning anything:
+
+    accent   interactive: paths, links, ls items, section heads, focus ring
+    secret   the hidden layer only: dotfiles, and the prompt arrow as a hint
+    meta     git and metadata: the branch segment, dates, counts
+    error    the single error slot
+    selected an active row in a list, accent tinted so it reads at a glance
+    scrollbar the thumb, quiet enough to ignore and present enough to find
+    bright   names and the typed command, nothing else
+
+  Every token that can carry body text clears 4.5:1 on both surface and chrome.
+  Theme selection is phase 5; today :root is midnight and the others are opt in.
+*/
+
+:root,
+[data-theme='midnight'] {
+  --surface: #0f151c;
+  --chrome: #18202a;
+  --fg: #c7d1db;
+  --bright: #ffffff;
+  --dim: #8f9ba7;
+  --accent: #8ec8e8;
+  --secret: #c678dd;
+  --meta: #e5c07b;
+  --error: #e88b8b;
+  --line: rgb(255 255 255 / 0.1);
+  --card: rgb(255 255 255 / 0.035);
+  --selected: rgb(142 200 232 / 0.16);
+  --scrollbar: rgb(255 255 255 / 0.16);
+  --wall: #080d12;
+}
+
+[data-theme='nocturne'] {
+  --surface: #14141a;
+  --chrome: #1c1c25;
+  --fg: #c9c9d2;
+  --bright: #ffffff;
+  --dim: #90909f;
+  --accent: #b79cf0;
+  --secret: #7fc9c0;
+  --meta: #e0b87a;
+  --error: #e88b8b;
+  --line: rgb(255 255 255 / 0.095);
+  --card: rgb(255 255 255 / 0.035);
+  --selected: rgb(183 156 240 / 0.18);
+  --scrollbar: rgb(255 255 255 / 0.15);
+  --wall: #0d0d12;
+}
+
+[data-theme='daylight'] {
+  --surface: #e6ecf1;
+  --chrome: #d9e2e9;
+  --fg: #1e2a33;
+  --bright: #0d151b;
+  --dim: #4c5e6a;
+  --accent: #1a5871;
+  --secret: #8a4a1c;
+  --meta: #6b5410;
+  --error: #91302f;
+  --line: rgb(20 45 60 / 0.18);
+  --card: rgb(20 45 60 / 0.045);
+  --selected: rgb(26 88 113 / 0.14);
+  --scrollbar: rgb(20 45 60 / 0.24);
+  --wall: #c6d3dd;
+}
