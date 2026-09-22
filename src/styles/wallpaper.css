@@ -1,0 +1,31 @@
+/*
+  The desktop wall: a sheet of drafting paper. Two grids, nothing else. No
+  gradient, no vignette, no motion, so there is no still frame to degrade to and
+  nothing to pause while the window covers it.
+
+  The major rules land on every fifth minor rule, so both paint at those
+  crossings and the heavier line falls out of the arithmetic rather than being
+  drawn separately. That is also how real graph paper is printed.
+*/
+
+[data-wall] {
+  --wall-cell: 24px;
+  --wall-major: calc(var(--wall-cell) * 5);
+
+  position: absolute;
+  inset: 0;
+}
+
+[data-wall='rules'] {
+  background-image:
+    linear-gradient(to right, var(--wall-rule) 0 1px, transparent 1px),
+    linear-gradient(to bottom, var(--wall-rule) 0 1px, transparent 1px);
+  background-size: var(--wall-cell) var(--wall-cell);
+}
+
+[data-wall='majors'] {
+  background-image:
+    linear-gradient(to right, var(--wall-rule-major) 0 1px, transparent 1px),
+    linear-gradient(to bottom, var(--wall-rule-major) 0 1px, transparent 1px);
+  background-size: var(--wall-major) var(--wall-major);
+}

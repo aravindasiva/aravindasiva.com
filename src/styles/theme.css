@@ -10,6 +10,9 @@
     selected an active row in a list, accent tinted so it reads at a glance
     scrollbar the thumb, quiet enough to ignore and present enough to find
     bright   names and the typed command, nothing else
+    wall     the desktop behind the window
+    wall-rule the drafting rules on it. alpha is the whole budget: text sits
+             directly on these, so they stay far under the ink they interrupt
 
   Every token that can carry body text clears 4.5:1 on both surface and chrome.
   Theme selection is phase 5; today :root is midnight and the others are opt in.
@@ -31,6 +34,9 @@
   --selected: rgb(142 200 232 / 0.16);
   --scrollbar: rgb(255 255 255 / 0.16);
   --wall: #080d12;
+  --wall-rule: rgb(142 200 232 / 0.07);
+  --wall-rule-major: rgb(142 200 232 / 0.11);
+  --window-shadow: 0 18px 44px -14px rgb(0 0 0 / 0.7);
 }
 
 [data-theme='nocturne'] {
@@ -48,6 +54,9 @@
   --selected: rgb(183 156 240 / 0.18);
   --scrollbar: rgb(255 255 255 / 0.15);
   --wall: #0d0d12;
+  --wall-rule: rgb(183 156 240 / 0.07);
+  --wall-rule-major: rgb(183 156 240 / 0.11);
+  --window-shadow: 0 18px 44px -14px rgb(0 0 0 / 0.72);
 }
 
 [data-theme='daylight'] {
@@ -65,4 +74,7 @@
   --selected: rgb(26 88 113 / 0.14);
   --scrollbar: rgb(20 45 60 / 0.24);
   --wall: #c6d3dd;
+  --wall-rule: rgb(26 88 113 / 0.1);
+  --wall-rule-major: rgb(26 88 113 / 0.17);
+  --window-shadow: 0 18px 44px -16px rgb(20 45 60 / 0.4);
 }

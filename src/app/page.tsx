@@ -1,5 +1,5 @@
-import { Terminal } from '@/terminal/Terminal'
+import { Desktop } from '@/desktop/Desktop'
 
 export default function HomePage() {
-  return <Terminal />
+  return <Desktop />
 }

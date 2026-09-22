@@ -11,17 +11,37 @@ import { TrafficLights } from './TrafficLights'
 
 type TitleBarProps = {
   theme: ThemeName
+  fullscreen: boolean
+  windowControls: boolean
   onRun: (input: string) => void
   onOpenPalette: () => void
+  onMinimise: () => void
+  onClose: () => void
+  onToggleFullscreen: () => void
 }
 
-export function TitleBar({ theme, onRun, onOpenPalette }: TitleBarProps) {
+export function TitleBar({
+  theme,
+  fullscreen,
+  windowControls,
+  onRun,
+  onOpenPalette,
+  onMinimise,
+  onClose,
+  onToggleFullscreen,
+}: TitleBarProps) {
   return (
     <Row
       gap="base"
       className="h-titlebar flex-none border-b border-line bg-chrome px-3"
     >
-      <TrafficLights />
+      <TrafficLights
+        interactive={windowControls}
+        fullscreen={fullscreen}
+        onClose={onClose}
+        onMinimise={onMinimise}
+        onToggleFullscreen={onToggleFullscreen}
+      />
 
       <Row gap="snug" className="min-w-0">
         <Folder aria-hidden className="size-3.5 flex-none text-dim" />
