@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '../styles/theme.css';
+@import '../styles/wallpaper.css';
 
 /*
   Tokens run primitive -> semantic -> component, one way. Primitives are
@@ -28,6 +29,8 @@
   --color-selected: var(--selected);
   --color-scrollbar: var(--scrollbar);
   --color-wall: var(--wall);
+
+  --shadow-window: var(--window-shadow);
 
   /* macOS window controls. System constants, identical in every palette. */
   --color-light-close: #ff5f57;
@@ -91,7 +94,7 @@
 @theme {
   --spacing-desk: 12px;
   --spacing-titlebar: 40px;
-  --spacing-light: 11px;
+  --spacing-light: 12px;
   --spacing-gutter: 20px;
   --spacing-block: 24px;
   --spacing-tap: 44px;
@@ -111,6 +114,7 @@
   --animate-arrive: arrive 220ms var(--ease-out) both;
 
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-win: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @keyframes pulse-block {
@@ -154,7 +158,6 @@
   }
 
   body {
-    background: var(--wall);
     color: var(--fg);
     font-family: var(--font-mono);
   }

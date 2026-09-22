@@ -48,10 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${mono.variable} ${ui.variable}`}
       suppressHydrationWarning
     >
-      <body
-        suppressHydrationWarning
-        className="h-dvh overflow-hidden bg-wall p-0 sm:p-desk"
-      >
+      <body suppressHydrationWarning className="h-dvh overflow-hidden">
         <script dangerouslySetInnerHTML={{ __html: applyStoredTheme }} />
         <TooltipProvider delay={800}>{children}</TooltipProvider>
       </body>
